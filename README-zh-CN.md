@@ -2,7 +2,7 @@
 
 # 🌊 海洋渔业资源管理与可持续利用平台
 
-> 以数据驱动渔业未来，以技术守护海洋生态
+> B端管理系统 & 数据密集型场景
 
 ## 项目简介
 
@@ -42,23 +42,6 @@
                               Django ORM (对象关系映射)
                                         │
                                   MySQL 数据库 (17张表)
-```
-
-## 快速开始
-```bash
-# 克隆项目
-git clone https://github.com/your-username/marine-fishery-platform.git
-cd marine-fishery-platform
-
-# 安装依赖
-pip install -r requirements.txt
-
-# 配置数据库（修改 settings.py 中的 DATABASES）
-# 迁移数据库
-python manage.py migrate
-
-# 启动服务
-python manage.py runserver
 ```
 
 ## 项目意义
