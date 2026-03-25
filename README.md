@@ -1,3 +1,5 @@
+🌍 [简体中文](README.zh-CN.md) | English
+
 # 🌊 Marine Fishery Resource Management & Sustainable Utilization Platform
 
 > B-end management systems & data-intensive scenarios.
