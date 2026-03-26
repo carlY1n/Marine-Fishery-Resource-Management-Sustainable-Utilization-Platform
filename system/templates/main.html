@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>海洋渔业智慧平台 | 数据决策中枢</title>
+  <style>
+    /* ---------- RESET & 全局基础 ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, 'BlinkMacSystemFont', 'Roboto', sans-serif;
+      background: #0a1a2f;  /* fallback 深海色 */
+    }
+
+    /* 主容器：全屏 + 背景图（保持原有图片路径，增强沉浸感） */
+    .div {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url(../static/fig/div.png) center center / cover no-repeat;
+      background-attachment: fixed;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* 深邃渐变叠加层：增强文字可读性 + 科技氛围 */
+    .div::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(10, 30, 50, 0.3) 0%, rgba(2, 10, 22, 0.65) 100%);
+      backdrop-filter: brightness(1.05) contrast(1.1);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ---------- LOGO 区域：绝对居中 + 优雅光晕 ---------- */
+    .logo {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: auto;
+      max-width: 28vw;
+      min-width: 160px;
+      height: auto;
+      max-height: 32vh;
+      object-fit: contain;
+      z-index: 20;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 8px rgba(0, 255, 255, 0.3));
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      pointer-events: none;  /* 让logo不干扰按钮点击 */
+    }
+
+    /* 可选：微光扫描动画 */
+    @keyframes gentleGlow {
+      0% { filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 5px rgba(64, 224, 255, 0.3)); }
+      100% { filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 18px rgba(0, 255, 255, 0.6)); }
+    }
+    .logo {
+      animation: gentleGlow 3s infinite alternate ease-in-out;
+    }
+
+    /* 隐藏旧的冗余装饰块 (rectangle-4 无用) */
+    .rectangle-4 {
+      display: none;
+    }
+
+    /* ---------- 悬浮按钮核心样式 (漂浮于周围) ---------- */
+    .nav-btn {
+      position: absolute;
+      /* 位置由 JS 动态计算，绝对定位相对于 .div */
+      z-index: 30;
+      background: rgba(20, 35, 55, 0.68);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #f0fcff;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(110, 200, 255, 0.6);
+      box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(0, 200, 255, 0);
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      white-space: nowrap;
+      font-family: inherit;
+      text-align: center;
+      min-width: 130px;
+      backdrop-filter: blur(14px);
+      transform: translateY(0px);
+      /* 动画悬浮感 */
+      animation: floatSoft 3.5s infinite ease-in-out;
+      will-change: transform, box-shadow;
+    }
+
+    /* 个性化延迟，让漂浮错落有致 */
+    .nav-btn:nth-child(1) { animation-delay: 0s; }
+    .nav-btn:nth-child(2) { animation-delay: 0.6s; }
+    .nav-btn:nth-child(3) { animation-delay: 1.2s; }
+    .nav-btn:nth-child(4) { animation-delay: 0.2s; }
+    .nav-btn:nth-child(5) { animation-delay: 0.9s; }
+
+    /* 漂浮动画 (柔和上下 + 轻微旋转) */
+    @keyframes floatSoft {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotate(0.5deg);
+      }
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    }
+
+    /* 悬停效果：更立体 + 光效 + 放大 */
+    .nav-btn:hover {
+      background: rgba(30, 110, 150, 0.85);
+      backdrop-filter: blur(8px);
+      border-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 30px -8px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(0, 210, 255, 0.5), 0 0 20px rgba(0, 210, 255, 0.5);
+      transform: scale(1.07) translateY(-5px);
+      color: white;
+      text-shadow: 0 0 6px rgba(0, 255, 255, 0.8);
+      transition: all 0.25s ease-out;
+    }
+
+    /* 确保点击反馈 */
+    .nav-btn:active {
+      transform: scale(0.97);
+      transition: 0.05s;
+    }
+
+    /* 响应式：如果屏幕过窄，按钮文字缩小，内边距调整 */
+    @media (max-width: 850px) {
+      .nav-btn {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+        min-width: 105px;
+        white-space: nowrap;
+      }
+      .logo {
+        max-width: 35vw;
+        min-width: 130px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav-btn {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+        min-width: 85px;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    /* 增加环绕背景装饰光晕 (提升美学张力) */
+    .div::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40vmax;
+      height: 40vmax;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(0, 180, 240, 0.15) 0%, rgba(0, 100, 150, 0) 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* 增加底部装饰波浪线 (高级感) */
+    .wave-deco {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: repeating-linear-gradient( transparent 0px, transparent 38px, rgba(72, 187, 255, 0.2) 38px, rgba(72, 187, 255, 0.3) 42px);
+      pointer-events: none;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+<div class="div">
+  <!-- logo 居中 -->
+  <img class="logo" src="../static/fig/logo0.png" alt="海洋渔业智慧平台" />
+
+  <!-- 五个功能模块表单，保留原始 action 与 csrf 逻辑，结构不变 -->
+  <form method="post" action="/marine_environment/">
+    {% csrf_token %}
+    <button type="submit" class="nav-btn marine-btn">🌊 海洋环境</button>
+  </form>
+
+  <form method="post" action="/fishing_resources/">
+    {% csrf_token %}
+    <button type="submit" class="nav-btn resource-btn">🐟 渔业资源</button>
+  </form>
+
+  <form method="post" action="/fishing_activities/">
+    {% csrf_token %}
+    <button type="submit" class="nav-btn activity-btn">⚓ 渔业活动</button>
+  </form>
+
+  <form method="post" action="/policies/">
+    {% csrf_token %}
+    <button type="submit" class="nav-btn policy-btn">📜 政策公示</button>
+  </form>
+
+  <form method="post" action="/recommendations/">
+    {% csrf_token %}
+    <button type="submit" class="nav-btn advice-btn">💡 工作建议</button>
+  </form>
+
+  <!-- 装饰波浪 -->
+  <div class="wave-deco"></div>
+</div>
+
+<script>
+  (function() {
+    // 精密环绕逻辑：使五个按钮均匀分布在 logo 周围，且响应窗口变化，漂浮美学
+    // 获取父容器、logo元素、所有导航按钮
+    const container = document.querySelector('.div');
+    const logoImg = document.querySelector('.logo');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    
+    // 五个按钮对应的角度 (弧度制) —— 圆润分布，起始角度 -90° (正上方为第一个，视觉均衡)
+    // 顺序: 海洋环境(上偏右)、渔业资源(右下)、渔业活动(右下偏下)、政策公示(左下)、工作建议(左上)
+    // 但为了对称优雅，将五个点均匀间隔 72°，第一个指向 12点钟方向 ( -PI/2 )
+    const anglesDeg = [-90, -18, 54, 126, 198];  // 单位度，优美环绕：上、右上、右下、左下、左上
+    const anglesRad = anglesDeg.map(deg => deg * Math.PI / 180);
+    
+    // 防止重复监听和性能抖动
+    let resizeTimer = null;
+    
+    // 核心定位函数：根据 logo 的中心和当前窗口/容器尺寸重新计算每个按钮位置
+    function positionButtons() {
+      if (!container || !logoImg || navBtns.length === 0) return;
+      
+      // 获取容器相对定位的边界 (相对于视口)
+      const containerRect = container.getBoundingClientRect();
+      // 获取 logo 相对于视口的边界
+      const logoRect = logoImg.getBoundingClientRect();
+      
+      // 计算 logo 中心点相对于容器的坐标 (左上角为原点)
+      const logoCenterX = logoRect.left + logoRect.width / 2 - containerRect.left;
+      const logoCenterY = logoRect.top + logoRect.height / 2 - containerRect.top;
+      
+      // 动态半径计算: 基于logo尺寸和容器大小，保证按钮不重叠且视觉舒适
+      // 基准半径 = max(logo半宽+按钮平均半宽+间距, 容器短边*0.2)
+      let maxBtnWidth = 0;
+      let maxBtnHeight = 0;
+      // 获取每个按钮的宽高（因为可能存在不同文字长度，动态获取实时宽高）
+      navBtns.forEach(btn => {
+        const rect = btn.getBoundingClientRect();
+        maxBtnWidth = Math.max(maxBtnWidth, rect.width);
+        maxBtnHeight = Math.max(maxBtnHeight, rect.height);
+      });
+      // 平均半宽和半高近似
+      const avgBtnHalfWidth = maxBtnWidth / 2;
+      const avgBtnHalfHeight = maxBtnHeight / 2;
+      const logoHalfWidth = logoRect.width / 2;
+      const logoHalfHeight = logoRect.height / 2;
+      
+      // 理论最小半径: logo半宽/半高 + 按钮半宽/半高 + 额外视觉间距 (25px)
+      const minRadiusByWidth = logoHalfWidth + avgBtnHalfWidth + 30;
+      const minRadiusByHeight = logoHalfHeight + avgBtnHalfHeight + 30;
+      let dynamicRadius = Math.max(minRadiusByWidth, minRadiusByHeight, 140);
+      
+      // 同时根据容器尺寸限制最大半径，避免按钮超出边界过多
+      const containerWidth = containerRect.width;
+      const containerHeight = containerRect.height;
+      const maxAllowedRadius = Math.min(containerWidth * 0.38, containerHeight * 0.38, 320);
+      dynamicRadius = Math.min(dynamicRadius, maxAllowedRadius);
+      // 确保半径不小于 110px (移动端友好)
+      dynamicRadius = Math.max(dynamicRadius, 110);
+      
+      // 额外确保按钮不会超出可视区，若某个方向溢出则微调半径（极少数边界情况）
+      let safeRadius = dynamicRadius;
+      // 模拟每个按钮位置边界检查，如果超出过多则缩减半径5% (保险)
+      let overflow = false;
+      for (let i = 0; i < navBtns.length; i++) {
+        const rad = anglesRad[i];
+        const btnCenterX = logoCenterX + safeRadius * Math.cos(rad);
+        const btnCenterY = logoCenterY + safeRadius * Math.sin(rad);
+        const btnRect = navBtns[i].getBoundingClientRect();
+        const btnHalfW = btnRect.width / 2;
+        const btnHalfH = btnRect.height / 2;
+        const leftEdge = btnCenterX - btnHalfW;
+        const rightEdge = btnCenterX + btnHalfW;
+        const topEdge = btnCenterY - btnHalfH;
+        const bottomEdge = btnCenterY + btnHalfH;
+        if (leftEdge < 10 || rightEdge > containerWidth - 10 || topEdge < 10 || bottomEdge > containerHeight - 10) {
+          overflow = true;
+        }
+      }
+      if (overflow && safeRadius > 100) {
+        safeRadius = Math.max(safeRadius * 0.92, 100);
+      }
+      
+      // 最终半径确立
+      const finalRadius = safeRadius;
+      
+      // 遍历按钮，设置绝对定位 (left, top)
+      navBtns.forEach((btn, idx) => {
+        const rad = anglesRad[idx % anglesRad.length];
+        // 计算按钮中心点坐标 (相对于容器)
+        const btnCenterX = logoCenterX + finalRadius * Math.cos(rad);
+        const btnCenterY = logoCenterY + finalRadius * Math.sin(rad);
+        
+        // 获取当前按钮实际宽高 (因为字体缩放可能导致尺寸动态变化)
+        const btnWidth = btn.offsetWidth;
+        const btnHeight = btn.offsetHeight;
+        // 左上角坐标
+        const leftPos = btnCenterX - btnWidth / 2;
+        const topPos = btnCenterY - btnHeight / 2;
+        
+        // 应用位置，同时保证不超出父容器边界 (进行软限制，避免按钮不可见)
+        let finalLeft = leftPos;
+        let finalTop = topPos;
+        // 边缘保护：确保按钮至少保留10px内边距不贴边
+        finalLeft = Math.min(Math.max(finalLeft, 8), containerRect.width - btnWidth - 8);
+        finalTop = Math.min(Math.max(finalTop, 8), containerRect.height - btnHeight - 8);
+        
+        btn.style.position = 'absolute';
+        btn.style.left = finalLeft + 'px';
+        btn.style.top = finalTop + 'px';
+        btn.style.right = 'auto';
+        btn.style.bottom = 'auto';
+        // 确保按钮出现在最上层，且不会干扰logo点击区域 (logo指针已none)
+        btn.style.zIndex = '35';
+      });
+    }
+    
+    // 监听窗口大小变化和字体缩放，重新布局 (添加防抖)
+    function handleResize() {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        positionButtons();
+      }, 120);
+    }
+    
+    // 监听图片加载完成 (logo可能延迟加载，确保完全加载后重新定位)
+    function onImagesReady() {
+      if (logoImg.complete && logoImg.naturalWidth !== 0) {
+        positionButtons();
+      } else {
+        logoImg.addEventListener('load', () => positionButtons());
+      }
+      // 同时也考虑其他字体/资源加载
+      window.addEventListener('load', () => {
+        positionButtons();
+        // 二次保险，等待动态渲染稳定
+        setTimeout(positionButtons, 80);
+      });
+    }
+    
+    // 初始化: 监听resize, 滚动（极少情况，但处理安全）, 观察DOM变化（字体缩放等）
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(positionButtons, 30);
+    });
+    // 使用 MutationObserver 监听子节点样式变化（如主题变化或动态内容影响，极少情况但稳健）
+    const observer = new MutationObserver(() => {
+      positionButtons();
+    });
+    observer.observe(container, { attributes: true, childList: false, subtree: false });
+    // 监听 logo 属性变化
+    observer.observe(logoImg, { attributes: true });
+    
+    // 初始调用
+    onImagesReady();
+    // 额外确保按钮的初始位置不闪烁（在style中先保留相对位置，但我们会立刻覆盖）
+    // 为了让过渡更平滑，可以给按钮加一个初始透明度过渡
+    navBtns.forEach(btn => {
+      btn.style.opacity = '0';
+      btn.style.transition = 'opacity 0.4s ease, left 0.2s ease, top 0.2s ease, transform 0.2s';
+    });
+    
+    // 位置计算完成后显示按钮，优雅显现
+    function showButtonsWithFade() {
+      positionButtons();
+      navBtns.forEach(btn => {
+        btn.style.opacity = '1';
+      });
+    }
+    
+    // 多次确保位置精确
+    setTimeout(() => {
+      showButtonsWithFade();
+    }, 30);
+    setTimeout(() => {
+      positionButtons();  // 再次校准
+    }, 200);
+    
+    // 当任何字体加载或窗口变化结束时重新校准
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(() => {
+        positionButtons();
+      });
+      resizeObserver.observe(container);
+      resizeObserver.observe(logoImg);
+      navBtns.forEach(btn => resizeObserver.observe(btn));
+    }
+    
+    // 页面完全加载后再强制重新定位，防止背景图偏移导致微小错位
+    window.addEventListener('load', () => {
+      positionButtons();
+      setTimeout(positionButtons, 100);
+    });
+  })();
+</script>
+</body>
+</html>

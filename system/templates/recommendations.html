@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/css/policies.css">
+  <script src="../static/js/system.js"></script>
+  
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
+</head>
+<body>
+  <div
+    class="div"
+    style="
+      background: url(../static/fig/div.png) center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    "
+  >
+    <div class="div2">海洋渔业资源管理与可持续利用平台</div>
+
+    <form method="post" action="/recom/">
+      {% csrf_token %}
+      <div class="div3">
+        <div class="rectangle-4"></div>
+        <button type="submit" class="div4">发表建议</button>
+      </div>
+      <div class="div5">
+        <div class="div6"><input type="text" name="comment" class="input-field" placeholder="请输入建议" /></div>
+      </div>
+    </form>
+
+    <div class="div7">
+      <div class="rectangle-8"></div>
+      <div class="div8">Suggestion content text...</div>
+    </div>
+    <form method="post" action="/main/">
+      {% csrf_token %}
+      <div class="div9">
+        <div class="rectangle-4"></div>
+        <button type="submit" class="div4">返回主页面</button>
+      </div>
+    </form>
+  </div>
+  
+</body>
+</html>

@@ -1,0 +1,131 @@
+.div,
+.div * {
+  box-sizing: border-box;
+}
+.div {
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+}
+.div2 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 96px;
+  font-weight: 700;
+  position: absolute;
+  left: 128px;
+  top: 40px;
+  width: 1664px;
+  height: 232px;
+  -webkit-text-stroke: 1px #000000;
+}
+.div3 {
+  width: 359px;
+  height: 124px;
+  position: absolute;
+  left: 244px;
+  top: 782px;
+}
+.rectangle-4 {
+  background: rgba(217, 217, 217, 0.27);
+  border-radius: 20px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  top: 0%;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.div4 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  position: absolute;
+  right: 13.59%;
+  left: 11.41%;
+  width: 75%;
+  bottom: 22.22%;
+  top: 11.11%;
+  height: 66.67%;
+}
+.div5 {
+  width: 569px;
+  height: 518px;
+  position: absolute;
+  left: 140px;
+  top: 240px;
+}
+.div6 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  position: absolute;
+  right: 5.1%;
+  left: 3.34%;
+  width: 91.56%;
+  bottom: 6.56%;
+  top: 6.18%;
+  height: 87.26%;
+}
+.rectangle-7 {
+  background: #d9d9d9;
+  border-radius: 20px;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  top: 0%;
+}
+.div7 {
+  width: 1033px;
+  height: 766px;
+  position: absolute;
+  left: 825px;
+  top: 240px;
+}
+.rectangle-8 {
+  background: #d9d9d9;
+  border-radius: 20px;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  top: 0%;
+}
+.div8 {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Inter-Bold", sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  position: absolute;
+  right: 4.16%;
+  left: 5.13%;
+  width: 90.71%;
+  bottom: 7.21%;
+  top: 7.66%;
+  height: 85.14%;
+}
+.div9 {
+  width: 427px;
+  height: 124px;
+  position: absolute;
+  left: 206px;
+  top: 930px;
+}

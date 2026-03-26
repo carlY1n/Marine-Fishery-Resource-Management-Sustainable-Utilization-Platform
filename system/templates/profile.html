@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/css/profile.css">
+  <script src="../static/js/system.js"></script>
+  
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
+</head>
+<body>
+  <div
+    class="div"
+    style="
+      background: url(../static/fig/div.png) center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    "
+  >
+    <div class="div2">海洋渔业资源管理与可持续利用平台</div>
+    <div class="div3">
+      <div class="div4">账号：</div>
+      <div class="div5">
+        <div class="rectangle-2"></div>
+        <div class="div6">账号</div>
+      </div>
+    </div>
+    <div class="div7">
+      <div class="div4">密码：</div>
+      <div class="div5">
+        <div class="rectangle-2"></div>
+        <div class="div6">密码</div>
+      </div>
+    </div>
+    <div class="div8">
+      <div class="div4">身份：</div>
+      <div class="div5">
+        <div class="rectangle-2"></div>
+        <div class="div6">身份</div>
+      </div>
+    </div>
+    <div class="div9">
+      <div class="div4">名称：</div>
+      <div class="div5">
+        <div class="rectangle-2"></div>
+        <div class="div6">名称</div>
+      </div>
+    </div>
+    <div class="rectangle-9"></div>
+    <div class="div10">
+      <div class="rectangle-5"></div>
+      <div class="div11">上传头像</div>
+    </div>
+    <form method="post" action="/main/">
+      {% csrf_token %}
+      <div class="div12">
+        <div class="rectangle-4"></div>
+        <button type="submit" class="div13">返回主页面</button>
+      </div>
+    </form>
+    <div class="div14">
+      <div class="rectangle-4"></div>
+      <div class="div13">保存修改</div>
+    </div>
+  </div>
+  
+</body>
+</html>
