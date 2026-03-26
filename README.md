@@ -2,7 +2,7 @@
 
 # 🌊 Marine Fishery Resource Management & Sustainable Utilization Platform
 
-> B-end management systems & data-intensive scenarios.
+> B-end management systems & data-intensive scenarios
 
 ## Overview
 
